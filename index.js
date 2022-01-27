@@ -1,14 +1,16 @@
 const inquirer = require('inquirer')
 const fs = require('fs');
+//Importing modules for generating employees.
 const generateHtml = require('./util/generateHtml')
 const Employee = require('./lib/Employee')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 
+//New employees will be pushed into this array. When the user is finished creating employees, this array will be fed into the html generator.
 const employees = [];
 
-//Prompts begin here. Will take user input for team manager position.
+//Prompts begin here. Will take user input for team manager position. The team manager is then generated as an object using the Manager.js module, and then that object is pushed into the employees array.
 const start = () => {
     inquirer
     .prompt([
@@ -41,7 +43,7 @@ const start = () => {
     })
 
 }
-
+//This function is called every time a new employee is created until the user decides their team is complete, at which point they can select "finish" and activate the html generator.
 const nextQuestion = () => {
     inquirer
     .prompt([
@@ -64,16 +66,12 @@ const nextQuestion = () => {
                 addEmployee();
                 break;
             default:
-                // console.log(employees);
-                // console.log(employees[0]);
-                // console.log(employees[0].role);
-                //TODO: Will call the html generator HERE.
                 generate(employees);
         }
     })
 
 }
-
+//Function for adding a new engineer. Operates on the Engineer.js module.
 const addEngineer = () => {
     inquirer
     .prompt([
@@ -106,7 +104,7 @@ const addEngineer = () => {
     })
 
 }
-
+//Function for adding a new intern. Operates on the Intern.js module.
 const addIntern = () => {
     inquirer
     .prompt([
@@ -138,7 +136,7 @@ const addIntern = () => {
         nextQuestion();
     })
 }
-
+//TODO: This isn't necessary since employees won't render onto the html. However, this could be added as a bonus feature for brownie points.
 const addEmployee = () => {
     inquirer
     .prompt([
@@ -167,8 +165,10 @@ const addEmployee = () => {
 
 }
 
+//Initialize.
 start();
 
+//This is the html generator function. It will create a new html file named after the team manager. It takes the employees array and all of its generated contents and then pushes that through to the generateHtml.js module in the util folder.
 function generate(employees) {
     fs.writeFile(`${employees[0].name}s-team.html`, generateHtml(employees), (err)=> 
     err ? console.error(err) : console.log('Responses logged!'));
