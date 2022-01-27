@@ -1,4 +1,5 @@
 const inquirer = require('inquirer')
+const fs = require('fs');
 const generateHtml = require('./util/generateHtml')
 const Employee = require('./lib/Employee')
 const Manager = require('./lib/Manager')
@@ -63,9 +64,11 @@ const nextQuestion = () => {
                 addEmployee();
                 break;
             default:
-                console.log(employees);
+                // console.log(employees);
+                // console.log(employees[0]);
+                // console.log(employees[0].role);
                 //TODO: Will call the html generator HERE.
-                // generateHtml();
+                generate(employees);
         }
     })
 
@@ -166,7 +169,10 @@ const addEmployee = () => {
 
 start();
 
-// generateHtml.generateTeam();
+function generate(employees) {
+    fs.writeFile(`${employees[0].name}s-team.html`, generateHtml(employees), (err)=> 
+    err ? console.error(err) : console.log('Responses logged!'));
+}
 
 //use inquirer to take in user input on employees
 //on start, user is prompted to enter TEAM MANAGER's name, employee id, email, and office number.
