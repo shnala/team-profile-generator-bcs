@@ -136,7 +136,7 @@ const addIntern = () => {
         nextQuestion();
     })
 }
-//TODO: This isn't necessary since employees won't render onto the html. However, this could be added as a bonus feature for brownie points.
+
 const addEmployee = () => {
     inquirer
     .prompt([
