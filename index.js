@@ -36,7 +36,8 @@ const start = () => {
         },
     ])
     .then((response) => {
-        const manager = new Manager(response.name, response.id, response.email, response.officeNumber);
+        const { name, id, email, officeNumber } = response;
+        const manager = new Manager(name, id, email, officeNumber);
         employees.push(manager);
         console.log(employees);
         nextQuestion();
@@ -97,7 +98,8 @@ const addEngineer = () => {
         },
     ])
     .then((response) => {
-        const engineer = new Engineer(response.name, response.id, response.email, response.github);
+        const { name, id, email, github } = response;
+        const engineer = new Engineer(name, id, email, github);
         employees.push(engineer);
         console.log(employees);
         nextQuestion();
@@ -130,7 +132,8 @@ const addIntern = () => {
         },
     ])
     .then((response) => {
-        const intern = new Intern(response.name, response.id, response.email, response.school);
+        const { name, id, email, school } = response;
+        const intern = new Intern(name, id, email, school);
         employees.push(intern);
         console.log(employees);
         nextQuestion();
@@ -157,7 +160,8 @@ const addEmployee = () => {
         }
     ])
     .then((response) => {
-        const employee = new Employee(response.name, response.id, response.email);
+        const { name, id, email } = response;
+        const employee = new Employee(name, id, email);
         employees.push(employee);
         console.log(employees);
         nextQuestion();
